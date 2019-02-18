@@ -32,7 +32,7 @@ def main():
     pdf.
     """
     training_data = pd.read_csv(
-        r"filtered_csv_files\geoFull2016.csv")
+        r"filtered_csv_files\geoUnited2016.csv")
     testing_data = pd.read_csv(
         r"filtered_csv_files\geoUnited2017.csv")
     x_train = training_data[["Day", "Zone", "Latitude", "Longitude"]]
