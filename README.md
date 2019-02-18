@@ -20,8 +20,8 @@ The python files need to be run in this order:
 Now we would like to visualize the data so we create 12 csv files, generating from the geo files we created at step 2.
 There are 12 files because there are 6 zones and we split the week days inot two groups - weekday(Mon-Fri) and weekend(Sat-Sun). So, this lead us to step 4.
 
-4. split_by_zone.py - splitiing the 10 minutes interval ones to 6 global zones.
-The zones are:
+4. split_by_zone.py - splitiing the 10 minutes interval zones to 6 global zones.
+The global zones are:
 zone 1 - between 7am to 9am
 zone 2 - between 9am to 12pm
 zone 3 - between 12pm to 16pm
@@ -29,7 +29,7 @@ zone 4 - between 16pm to 19pm
 zone 5 - between 19pm to 23pm
 zone 6 - between 23pm to 07am
 
-5.
+Now you are able to run the visualziation :)
 
 
 --------------------
