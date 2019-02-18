@@ -123,11 +123,13 @@ def main():
     "geo2016" or "geo2017" depend on the year of the input files.
     """
     then = time.time()
-    counter1 = read_file("Parking_Violations2017.csv", "geo2017.csv")
+    counter1 = read_file(r"filtered_csv_files\Parking_Violations2017.csv",
+                         "filtered_csv_files\geo2017.csv")
     now = time.time()  # Time after it finished
     print("It took for violation: ", now - then, " seconds")
     print("now adding the no parking")
-    counter2 = add_to_file("no_parkingViolations2017.csv", "geo2017.csv")
+    counter2 = add_to_file(r"filtered_csv_files\no_parkingViolations2017.csv"
+                           r"", r"filtered_csv_files\geo2017.csv")
     now = time.time()  # Time after it finished
     print("total lines in the united geo file:", counter1+counter2)
     print("It took: ", now - then, " seconds")
