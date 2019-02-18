@@ -124,15 +124,28 @@ def main():
     """
     then = time.time()
     counter1 = read_file(r"filtered_csv_files\Parking_Violations2017.csv",
-                         "filtered_csv_files\geo2017.csv")
+                         "filtered_csv_files\geoUnited2017.csv")
     now = time.time()  # Time after it finished
     print("It took for violation: ", now - then, " seconds")
     print("now adding the no parking")
     counter2 = add_to_file(r"filtered_csv_files\no_parkingViolations2017.csv"
-                           r"", r"filtered_csv_files\geo2017.csv")
+                           r"", r"filtered_csv_files\geoUnited2017.csv")
     now = time.time()  # Time after it finished
     print("total lines in the united geo file:", counter1+counter2)
     print("It took: ", now - then, " seconds")
+    print("two separates files:")
+    then = time.time()
+    counter3 = read_file(r"filtered_csv_files\Parking_Violations2017.csv",
+                         "filtered_csv_files\geoViolation2017.csv")
+    print("total lines in the violation geo file:", counter3)
+    now = time.time()  # Time after it finished
+    print("It took for violation round 2: ", now - then, " seconds")
+    print("now adding the no violation parking")
+    counter4 = read_file(r"filtered_csv_files\no_parkingViolations2017.csv",
+                         "filtered_csv_files\geoNoViolation2017.csv")
+    print("total lines in the No violation geo file:", counter4)
+    now = time.time()  # Time after it finished
+    print("It took for NO violation round 2: ", now - then, " seconds")
 
 if __name__ == "__main__":
     main()
