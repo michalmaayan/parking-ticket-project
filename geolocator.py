@@ -108,6 +108,7 @@ def add_to_file(file_to_read, file_to_write):
                 row["Latitude"] = coordinate[0]
                 row["Longitude"] = coordinate[1]
                 row["Day"] = row["Issue Date"]
+                row["Parking Violation"] = row["Violation Description"]
                 writer.writerow(row)
                 num_filtered_lines += 1
                 if num_lines % 100 == 0:
@@ -123,26 +124,26 @@ def main():
     "geo2016" or "geo2017" depend on the year of the input files.
     """
     then = time.time()
-    counter1 = read_file(r"filtered_csv_files\Parking_Violations2017.csv",
-                         "filtered_csv_files\geoUnited2017.csv")
+    counter1 = read_file(r"filtered_csv_files\Parking_Violations2016.csv",
+                         "filtered_csv_files\geoUnited2016.csv")
     now = time.time()  # Time after it finished
     print("It took for violation: ", now - then, " seconds")
     print("now adding the no parking")
-    counter2 = add_to_file(r"filtered_csv_files\no_parkingViolations2017.csv"
-                           r"", r"filtered_csv_files\geoUnited2017.csv")
+    counter2 = add_to_file(r"filtered_csv_files\no_parkingViolations2016.csv"
+                           r"", r"filtered_csv_files\geoUnited2016.csv")
     now = time.time()  # Time after it finished
     print("total lines in the united geo file:", counter1+counter2)
     print("It took: ", now - then, " seconds")
     print("two separates files:")
     then = time.time()
-    counter3 = read_file(r"filtered_csv_files\Parking_Violations2017.csv",
-                         "filtered_csv_files\geoViolation2017.csv")
+    counter3 = read_file(r"filtered_csv_files\Parking_Violations2016.csv",
+                         "filtered_csv_files\geoViolation2016.csv")
     print("total lines in the violation geo file:", counter3)
     now = time.time()  # Time after it finished
     print("It took for violation round 2: ", now - then, " seconds")
     print("now adding the no violation parking")
-    counter4 = read_file(r"filtered_csv_files\no_parkingViolations2017.csv",
-                         "filtered_csv_files\geoNoViolation2017.csv")
+    counter4 = read_file(r"filtered_csv_files\no_parkingViolations2016.csv",
+                         "filtered_csv_files\geoNoViolation2016.csv")
     print("total lines in the No violation geo file:", counter4)
     now = time.time()  # Time after it finished
     print("It took for NO violation round 2: ", now - then, " seconds")

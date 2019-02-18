@@ -4,7 +4,7 @@ We will train on the data we generated in the previous steps from 2016 and
 test on the one generated from 2017.
 """
 import xgboost
-from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import tree
 import pandas as pd
@@ -32,13 +32,13 @@ def main():
     pdf.
     """
     training_data = pd.read_csv(
-        r"filtered_csv_files\geo2016.csv")
+        r"filtered_csv_files\geoFull2016.csv")
     testing_data = pd.read_csv(
-        r"filtered_csv_files\geo2017.csv")
+        r"filtered_csv_files\geoUnited2017.csv")
     x_train = training_data[["Day", "Zone", "Latitude", "Longitude"]]
-    y_train = training_data['Violation Description']
+    y_train = training_data['Parking Violation']
     x_test = testing_data[["Day", "Zone", "Latitude", "Longitude"]]
-    y_test = testing_data['Violation Description']
+    y_test = testing_data['Parking Violation']
     classification_models(x_train, x_test, y_train, y_test)
 
 if __name__ == "__main__":
