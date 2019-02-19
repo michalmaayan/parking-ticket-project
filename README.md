@@ -33,9 +33,12 @@ zone 6 - between 23pm to 07am
 In order to run this program you will need to change the path to your local
 geo_violation csv path
 
-Now you are able to run the visualziation :)
+Now you are able to run the demo and see visualziation of the data :)
 
-5.
+5. ruuning the demo by running the GUI-
+    5.1 - In demo.py file you need to change the parameter "start_path" to your local path directory. At the previous step we create 12 csv global zones files with the following name "weekday_zone_timeX" or "weekend_zone_timeX" where 'X' is a digit between 1 to 6. This has to be the names of those files, but the directory you chose to save them its free to your choice, so please just change the beginning of the path, by changing "start_path" variable.
+    5.2 - Now, In order to run the GUI, run GUI.py and follow the instruction.
+    This will open you a heat-map showing the probabilty of getting a parking ticket.
 --------------------
 
 create the environment -
