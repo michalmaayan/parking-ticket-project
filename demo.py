@@ -1,3 +1,9 @@
+"""
+Running the demo with the classification.
+Don't forget to change start_path in zone_csv_file method!!!
+"""
+
+import os
 import xgboost
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import tree
@@ -6,8 +12,15 @@ from geopy.geocoders import Nominatim
 import csv
 import folium
 from folium.plugins import HeatMap
+from tkinter import messagebox
+import webbrowser
 
-def classification_models(x_train, x_test, y_train, y_test):
+
+def classification_models(x_train, x_test, y_train):
+    """
+    running our classification model in order to predict the probability of
+    getting a parking ticket.
+    """
     classifiers = []
     model1 = xgboost.XGBClassifier()
     classifiers.append(model1)
@@ -16,17 +29,20 @@ def classification_models(x_train, x_test, y_train, y_test):
     model3 = tree.DecisionTreeClassifier()
     classifiers.append(model3)
     y_pred = []
-    for i,clf in enumerate(classifiers):
+    for i, clf in enumerate(classifiers):
         clf.fit(x_train, y_train)
         y_pred.append(str(clf.predict(x_test)))
-    if y_pred.count("[0]")> y_pred.count("[1]"):
-        print("Park freely, your chances of getting a ticket are low!")
+    if y_pred.count("[0]") > y_pred.count("[1]"):
+        messagebox.showinfo('Message title',
+                            "Park freely, your chances of getting a ticket are low!")
     else:
-        print("Beware, your chances of getting a ticket are quite high...")
+        messagebox.showinfo('Message title',
+                            "Beware, your chances of getting a ticket are quite high...")
+    print("done")
 
 def from_zone_to_global_zone(zone):
     """
-    Find the global zone the inner zone is part of.
+    Find the global zone which the inner zone is part of.
     :param zone: 10 minute time interval
     :return: the coordinate global zone
     """
@@ -49,58 +65,68 @@ def from_zone_to_global_zone(zone):
     elif 138 <= zone or zone < 42:
         return "6"
 
+
 def time_to_zone(time):
     """
-    covert the given time to a ten interval time zone
+    convert the given time to a ten interval time zone
     :param time: a string in HHMM
     :return: the zone as an int number
     """
     time = int(time)
-    if time%100 < 10:
-        x = time//100
-        return x*6 + 1
-    if time%100 < 20:
-        x = time//100
-        return x*6 + 2
-    if time%100 < 30:
-        x = time//100
-        return x*6 + 3
-    if time%100 < 40:
-        x = time//100
-        return x*6 + 4
-    if time%100 < 50:
-        x = time//100
-        return x*6 + 5
+    if time % 100 < 10:
+        x = time // 100
+        return x * 6 + 1
+    if time % 100 < 20:
+        x = time // 100
+        return x * 6 + 2
+    if time % 100 < 30:
+        x = time // 100
+        return x * 6 + 3
+    if time % 100 < 40:
+        x = time // 100
+        return x * 6 + 4
+    if time % 100 < 50:
+        x = time // 100
+        return x * 6 + 5
     x = time // 100
-    return (x+1)*6
+    return (x + 1) * 6
+
 
 def address_to_coordinate(address):
     """
     replace street address to latitude and longitude
     """
-    address = address.lower()
-    geolocator = Nominatim(user_agent="Python/3.6 "
-                                      "(michal.maayan+needleproject@mail.huji.ac.il) "
-                                      "Parking Tickets Research")
-    location = geolocator.geocode(address + " NYC")
-    coordinate = (location.latitude, location.longitude)
-    return coordinate
+    try:
+        address = address.lower()
+        geolocator = Nominatim(user_agent="Python/3.6 "
+                                          "(michal.maayan+needleproject@mail.huji.ac.il) "
+                                          "Parking Tickets Research")
+        location = geolocator.geocode(address + " NYC")
+        coordinate = (location.latitude, location.longitude)
+        return coordinate
+    # validate the user "address" input
+    except Exception:
+        messagebox.showinfo('Error', 'Invalid Street name, Enter a valid '
+                                     'street name')
+        pass
 
-def zone_csv_file(day,global_zone):
+def zone_csv_file(day, global_zone):
     """
     return the path to the coordinate csv file, according to the user input
     """
     # in case the user chose Saturday or Sunday
-    if day==0 or day==6:
-        start_title = "weekend"
+    if day == 0 or day == 6:
+        part_of_week = "weekend"
     else:
-        start_title = "weekday"
-    path_name = "zones_csv\\"+start_title+"_zone_time"+global_zone+".csv"
+        part_of_week = "weekday"
+    start_path = "zones_csv\\"
+    path_name = start_path + part_of_week + "_zone_time" + global_zone + ".csv"
     return path_name
 
-def html_vizual(path_name, coordinate):
+
+def html_visual(path_name, coordinate):
     """
-    return the usewr an HTML linked to a hit-map represent the area of his
+    return the user an HTML linked to a hit-map represent the area of his
     parking according to the chosen time and day
     :param path_name:
     :param coordinate:
@@ -129,42 +155,68 @@ def html_vizual(path_name, coordinate):
 
     # open the saved map in browser
     map.save('map.html')
+    webbrowser.open('file://' + os.path.realpath("map.html"))
+    print("map is ready")
 
-def create_csv(day,time,street):
+def validate_time(time):
+    """
+    validate the user "time" input
+    :return: True if time is valid and False otherwise
+    """
+    if len(time) != 4:
+        return False
+    if int(time)%100 > 59:
+        return False
+    if int(time)//100 > 23:
+        return False
+    return True
+
+def create_csv(day, time, street):
     """
     creating a "test.csv" file from the user input
     """
+    # validte user "day" input
+    if int(day)<0 or int(day)>6:
+        print("day2")
+        messagebox.showinfo('Error', "Invalid day, Eneter a valid day digit"
+                                     " (0-Sunday...6-Sutarday)")
+        raise Exception("invalid day")
+    # validte user "time" input
+    if not validate_time(time):
+        messagebox.showinfo('Error', "Invalid time, Eneter a valid time "
+                                     "between 0000-2359")
+        raise Exception("invalid time")
     zone = time_to_zone(time)
     coordinate = address_to_coordinate(street)
     global_zone = from_zone_to_global_zone(zone)
-    path_name = zone_csv_file(day,global_zone)
-    html_vizual(path_name, coordinate)
+    path_name = zone_csv_file(day, global_zone)
+    html_visual(path_name, coordinate)
     with open("demo.csv", 'w', newline='') as f:
         writer = csv.writer(f)
         column_names = ["Day", "Zone", "Latitude", "Longitude", "Parking Violation"]
         writer.writerow(column_names)
         writer.writerow([day, zone, coordinate[0], coordinate[1], 0])
+    return path_name
 
-def main():
-    # training_data = pd.read_csv(
-    #     r"filtered_csv_files\geoUnited2017.csv")
-    # x_train = training_data[["Day", "Zone", "Latitude", "Longitude"]]
-    # y_train = training_data['Parking Violation']
 
-    print("hello, please enter the requested data one by one:")
-    day = input("please enter the day as a digit (Sun-0, Mon-1, Tue-2, "
-                "Wed-3, Thur-4, Fri-5, Sat-6): ")
-    time = input("please enter the time in HHMM format: ")
-    street_name = input("please enter the street name: ")
-    print()
-    create_csv(day, time, street_name)
-    # print("Have patience it might take a minute, we are learning from a "
-    #       "database with 4 million rows:)")
-    # print()
-    # testing_data = pd.read_csv(r"demo.csv")
-    # x_test = testing_data[["Day", "Zone", "Latitude", "Longitude"]]
-    # y_test = testing_data['Parking Violation']
-    # classification_models(x_train, x_test, y_train, y_test)
+def run_demo(day, time, street_name):
+    """
+    This method is called from GUI.py
+    :param day: user input
+    :param time: user input
+    :param street_name: user input
+    :return: a hit map and a note about the chance to get a parking ticket
+    """
+    try:
+        print("Have patience it might take a minute, we are learning from a "
+              "database with 4 million rows:)")
+        path_name = create_csv(day, time, street_name)
+        training_data = pd.read_csv(path_name)
+        x_train = training_data[["Day", "Zone", "Latitude", "Longitude"]]
+        y_train = training_data['Parking Violation']
+        testing_data = pd.read_csv(r"demo.csv")
+        x_test = testing_data[["Day", "Zone", "Latitude", "Longitude"]]
+        classification_models(x_train, x_test, y_train)
+    except Exception:
+        pass
 
-if __name__ == "__main__":
-    main()

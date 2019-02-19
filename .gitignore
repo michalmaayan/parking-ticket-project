@@ -1,2 +1,5 @@
 env/
 src_data/Violations*.csv
+*.csv
+.idea/workspace.xml
+__pycache__
