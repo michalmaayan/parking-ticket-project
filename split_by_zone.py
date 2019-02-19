@@ -12,6 +12,9 @@ zone 6 - between 23pm to 07am
 import csv
 import time
 
+# violation csv file with the streets coordinates
+GEO_VIOLATION_PATH = r"filtered_csv_files\geoViolation2017.csv"
+
 def read_file(file_to_read, output_list):
     """
     Splitting the data for the zones files
@@ -138,7 +141,7 @@ def main():
     # crating zones file for weekend - Saturday, Sunday
     for i in range(1,7):
         output_files.append(create_output_file("weekend_zone_time" + str(i) + ".csv"))
-    read_file(r"filtered_csv_files\geoViolation2017.csv", output_files)
+    read_file(GEO_VIOLATION_PATH, output_files)
     for file_obj in output_files:
         file_obj.close()
     now = time.time()  # Time after it finished
