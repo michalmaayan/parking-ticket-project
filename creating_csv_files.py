@@ -8,7 +8,7 @@ import datetime
 import random
 
 # src csv local path
-FILE_PATH = r"src_data\Violations2017.csv"
+FILE_PATH = r"src_data\Violations2016.csv"
 
 def time_to_zone(time):
     #todo ךרשום שעוד מידע בקובץ pdf
