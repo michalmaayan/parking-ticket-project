@@ -5,6 +5,15 @@ from geopy.geocoders import Nominatim
 import time
 import csv
 
+# violation and non violation csv files
+VIOLATION_PATH = r"filtered_csv_files\Parking_Violations2016.csv"
+NO_VIOLATION_PATH = r"filtered_csv_files\no_parkingViolations2016.csv"
+#output files
+GEO_UNITED_PATH = r"filtered_csv_files\geoUnited2016.csv"
+GEO_VIOLATION_PATH = "filtered_csv_files\geoViolation2016.csv"
+GEO_NO_VIOLATION_PATH = "filtered_csv_files\geoNoViolation2016.csv"
+
+
 # The process of converting street name to its latitude and longitude takes some time,
 # like 4 hours, so we will keep the latitude and longitude we already found.
 address_cache = {}
@@ -124,26 +133,22 @@ def main():
     "geo2016" or "geo2017" depend on the year of the input files.
     """
     then = time.time()
-    counter1 = read_file(r"filtered_csv_files\Parking_Violations2016.csv",
-                         "filtered_csv_files\geoUnited2016.csv")
+    counter1 = read_file(VIOLATION_PATH, GEO_UNITED_PATH)
     now = time.time()  # Time after it finished
     print("It took for violation: ", now - then, " seconds")
     print("now adding the no parking")
-    counter2 = add_to_file(r"filtered_csv_files\no_parkingViolations2016.csv"
-                           r"", r"filtered_csv_files\geoUnited2016.csv")
+    counter2 = add_to_file(NO_VIOLATION_PATH, GEO_UNITED_PATH)
     now = time.time()  # Time after it finished
     print("total lines in the united geo file:", counter1+counter2)
     print("It took: ", now - then, " seconds")
     print("two separates files:")
     then = time.time()
-    counter3 = read_file(r"filtered_csv_files\Parking_Violations2016.csv",
-                         "filtered_csv_files\geoViolation2016.csv")
+    counter3 = read_file(VIOLATION_PATH, GEO_VIOLATION_PATH)
     print("total lines in the violation geo file:", counter3)
     now = time.time()  # Time after it finished
     print("It took for violation round 2: ", now - then, " seconds")
     print("now adding the no violation parking")
-    counter4 = read_file(r"filtered_csv_files\no_parkingViolations2016.csv",
-                         "filtered_csv_files\geoNoViolation2016.csv")
+    counter4 = read_file(NO_VIOLATION_PATH, GEO_NO_VIOLATION_PATH)
     print("total lines in the No violation geo file:", counter4)
     now = time.time()  # Time after it finished
     print("It took for NO violation round 2: ", now - then, " seconds")
