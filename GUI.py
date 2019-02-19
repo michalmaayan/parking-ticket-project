@@ -1,5 +1,5 @@
 import tkinter as tk
-from demo2 import run_demo
+from demo import run_demo
 LARGE_FONT = ("Verdana", 12)
 
 
@@ -71,7 +71,7 @@ class StartPage(tk.Frame):
 
 
 
-class PageOne(tk.Frame):
+	class PageOne(tk.Frame):
 	def print_text(self, controller):
 		controller.show_frame(PageTwo)
 		print("done")
