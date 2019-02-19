@@ -7,6 +7,9 @@ import re
 import datetime
 import random
 
+# src csv local path
+FILE_PATH = r"src_data\Violations2017.csv"
+
 def time_to_zone(time):
     #todo ךרשום שעוד מידע בקובץ pdf
     """
@@ -167,7 +170,7 @@ def main():
     """
     Parsing the given csv file we downloaded from "Kaggle"
     """
-    create_file(r"src_data\Violations2017.csv")
+    create_file(FILE_PATH)
 
 if __name__ == "__main__":
     main()
