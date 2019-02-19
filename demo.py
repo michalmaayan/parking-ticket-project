@@ -1,3 +1,5 @@
+import os
+
 import xgboost
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import tree
@@ -7,6 +9,7 @@ import csv
 import folium
 from folium.plugins import HeatMap
 from tkinter import messagebox
+import webbrowser
 
 
 def classification_models(x_train, x_test, y_train, y_test):
@@ -142,6 +145,7 @@ def html_vizual(path_name, coordinate):
 
 	# open the saved map in browser
 	map.save('map.html')
+	webbrowser.open('file://' + os.path.realpath("map.html"))
 	print("map is ready")
 
 
