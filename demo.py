@@ -128,7 +128,7 @@ def html_vizual(path_name, coordinate):
     HeatMap(heat_data).add_to(map)
 
     # open the saved map in browser
-    map.save('index.html')
+    map.save('map.html')
 
 def create_csv(day,time,street):
     """
