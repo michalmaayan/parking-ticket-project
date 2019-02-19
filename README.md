@@ -42,10 +42,7 @@ Now you are able to run the demo and see visualziation of the data :)
 --------------------
 
 create the environment -
-0. download the requirements.txt file
 1. python -m venv env
 2. env\Scripts\activate
-3. pip freeze
-* At this stage the environment should be empty.
-4. pip install -r requirements.txt
+3. pip install -r requirements.txt
 *this step might take a while, but after this you are ready :)
