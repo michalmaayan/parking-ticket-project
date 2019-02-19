@@ -9,6 +9,10 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn import tree
 import pandas as pd
 
+# the path for the train and test csv files
+TRAIN_PATH = r"filtered_csv_files\geoUnited2016.csv"
+TEST_PATH = r"filtered_csv_files\geoUnited2017.csv"
+
 def classification_models(x_train, x_test, y_train, y_test):
     classifiers = []
     model1 = xgboost.XGBClassifier()
@@ -31,10 +35,8 @@ def main():
     we will use 3 different classification algorithm. more about then in the
     pdf.
     """
-    training_data = pd.read_csv(
-        r"filtered_csv_files\geoUnited2016.csv")
-    testing_data = pd.read_csv(
-        r"filtered_csv_files\geoUnited2017.csv")
+    training_data = pd.read_csv(TRAIN_PATH)
+    testing_data = pd.read_csv(TEST_PATH)
     x_train = training_data[["Day", "Zone", "Latitude", "Longitude"]]
     y_train = training_data['Parking Violation']
     x_test = testing_data[["Day", "Zone", "Latitude", "Longitude"]]
