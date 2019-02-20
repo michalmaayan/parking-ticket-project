@@ -12,9 +12,8 @@ section 6 - between 23pm to 07am
 """
 import csv
 import time
-
-# violation csv file with the streets coordinates
-GEO_VIOLATION_PATH = r"filtered_csv_files\geoViolation2017.csv"
+import sys
+from pathlib import Path
 
 def read_file(file_to_read, output_list):
     """
@@ -94,6 +93,8 @@ def main():
     """
     creating 12 sections files
     """
+    # violation csv file with the streets coordinates
+    geo_violation_path = Path(sys.argv[1])
     then1 = time.time()  # Time before the operations start
     # list of open files
     output_files = []
@@ -106,7 +107,7 @@ def main():
     for i in range(1,7):
         output_files.append(create_output_file("weekend_section_time" + str(
             i) + ".csv"))
-    read_file(GEO_VIOLATION_PATH, output_files)
+    read_file(geo_violation_path, output_files)
     for file_obj in output_files:
         file_obj.close()
     now = time.time()  # Time after it finished
