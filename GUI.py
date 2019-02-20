@@ -1,6 +1,5 @@
 import tkinter as tk
 from demo import run_demo
-LARGE_FONT = ("Verdana", 12)
 
 class App(tk.Tk):
 
@@ -97,14 +96,16 @@ class PageTwo(tk.Frame):
 	def __init__(self, parent, controller):
 		tk.Frame.__init__(self, parent)
 		self.configure(background="#009788")
-		label = tk.Label(self,fg="#383a39", bg="#009788", text="Have patience it might take a few minutes",
-						 font=("Helvetica", 10))
-		label.pack()
-		label = tk.Label(self, fg="#383a39",bg="#009788", text="we are learning from a database"
-															   " with 4 million rows:)", font=("Helvetica", 10))
-		label.pack()
+		tk.Label(self, fg="#383a39", bg="#009788",text="After pressing 'Run' your map should be "
+												"ready in 30 seconds", font=("Helvetica", 10)).pack()
+		tk.Label(self, fg="#383a39", bg="#009788", text="The classification model takes 5 minutes ",
+				 								font=("Helvetica", 10)).pack()
+		tk.Label(self,fg="#383a39", bg="#009788", text="Have patience we are learning from"
+								" a database with 4 million rows:)",font=("Helvetica", 10)).pack()
+
 		button2 = tk.Button(self, fg="#009788",bg="#383a39",text="Run", font=("Helvetica", 10),width=10,
 							command=lambda: self.print_text(controller))
+
 		button2.pack()
 		button1 = tk.Button(self, fg="#009788",bg="#383a39", text="Back",width=10,
 							command=lambda: controller.show_frame(PageOne))
