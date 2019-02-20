@@ -1,6 +1,7 @@
 """
 Running the demo with the classification.
-Don't forget to change start_path in zone_csv_file method!!!
+Don't forget to change files paths (surrounded by # box) in the constants after
+the import.
 """
 
 import os
@@ -15,8 +16,15 @@ from folium.plugins import HeatMap
 from tkinter import messagebox
 import webbrowser
 
-
+################################################
+# The csv's path files
+# 2016 or 2017 geoUnited file for the training part
 TRAINING_PATH = r"filtered_csv_files\geoUnited2016.csv"
+# The folder includes all zones (weekday and weekend), will be used in
+# "zone_csv_file" method
+START_PATH = "zones_csv\\"
+################################################
+
 
 def classification_models(x_train, x_test, y_train):
     """
@@ -121,8 +129,7 @@ def zone_csv_file(day, global_zone):
         part_of_week = "weekend"
     else:
         part_of_week = "weekday"
-    start_path = "zones_csv\\"
-    path_name = start_path + part_of_week + "_zone_time" + global_zone + ".csv"
+    path_name = START_PATH + part_of_week + "_zone_time" + global_zone + ".csv"
     return path_name
 
 
