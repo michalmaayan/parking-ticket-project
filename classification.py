@@ -49,6 +49,7 @@ def main(train_path, test_path):
     print("It took for violation round 2: ", now - then, " seconds")
 
 if __name__ == "__main__":
+    # geoUnited2016 and 2017 csv files
     train_path = Path(sys.argv[1])
     test_path = Path(sys.argv[2])
     main(train_path, test_path)
