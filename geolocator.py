@@ -4,14 +4,13 @@ Adding latitude and longitude to the parking ticket and the non violation files
 from geopy.geocoders import Nominatim
 import time
 import csv
+import sys
+from pathlib import Path
 
-# violation and non violation csv files
-VIOLATION_PATH = r"filtered_csv_files\Parking_Violations2016.csv"
-NO_VIOLATION_PATH = r"filtered_csv_files\no_parkingViolations2016.csv"
 #output files
-GEO_UNITED_PATH = r"filtered_csv_files\geoUnited2016.csv"
-GEO_VIOLATION_PATH = "filtered_csv_files\geoViolation2016.csv"
-GEO_NO_VIOLATION_PATH = "filtered_csv_files\geoNoViolation2016.csv"
+GEO_UNITED_PATH = r"geoUnited2016.csv"
+GEO_VIOLATION_PATH = r"geoViolation2016.csv"
+GEO_NO_VIOLATION_PATH = r"geoNoViolation2016.csv"
 
 
 # The process of converting street name to its latitude and longitude takes some time,
@@ -132,23 +131,27 @@ def main():
     name with the corresponding geolocation. Creates a united file name
     "geo2016" or "geo2017" depend on the year of the input files.
     """
+    # Parking_Violations2016.csv
+    violation_path = Path(sys.argv[1])
+    #no_parkingViolations2016.csv"
+    no_violation_path = Path(sys.argv[2])
     then = time.time()
-    counter1 = read_file(VIOLATION_PATH, GEO_UNITED_PATH)
+    counter1 = read_file(violation_path, GEO_UNITED_PATH)
     now = time.time()  # Time after it finished
     print("It took for violation: ", now - then, " seconds")
     print("now adding the no parking")
-    counter2 = add_to_file(NO_VIOLATION_PATH, GEO_UNITED_PATH)
+    counter2 = add_to_file(no_violation_path, GEO_UNITED_PATH)
     now = time.time()  # Time after it finished
     print("total lines in the united geo file:", counter1+counter2)
     print("It took: ", now - then, " seconds")
     print("two separates files:")
     then = time.time()
-    counter3 = read_file(VIOLATION_PATH, GEO_VIOLATION_PATH)
+    counter3 = read_file(violation_path, GEO_VIOLATION_PATH)
     print("total lines in the violation geo file:", counter3)
     now = time.time()  # Time after it finished
     print("It took for violation round 2: ", now - then, " seconds")
     print("now adding the no violation parking")
-    counter4 = read_file(NO_VIOLATION_PATH, GEO_NO_VIOLATION_PATH)
+    counter4 = read_file(no_violation_path, GEO_NO_VIOLATION_PATH)
     print("total lines in the No violation geo file:", counter4)
     now = time.time()  # Time after it finished
     print("It took for NO violation round 2: ", now - then, " seconds")
