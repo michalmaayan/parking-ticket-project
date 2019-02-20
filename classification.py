@@ -9,10 +9,9 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn import tree
 import pandas as pd
 import time
-
-# the path for the train and test csv files
-TRAIN_PATH = r"filtered_csv_files\geoUnited2016.csv"
-TEST_PATH = r"filtered_csv_files\geoUnited2017.csv"
+import warnings
+import sys
+from pathlib import Path
 
 def classification_models(x_train, x_test, y_train, y_test):
     classifiers = []
@@ -25,20 +24,22 @@ def classification_models(x_train, x_test, y_train, y_test):
 
     names = ["XGBClassifier", "RandomForestClassifier", "DecisionTreeClassifier"]
     for i,clf in enumerate(classifiers):
-        clf.fit(x_train, y_train)
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            clf.fit(x_train, y_train)
         y_pred = clf.predict(x_test)
         acc = accuracy_score(y_test, y_pred)
         print("Accuracy of %s is %s" % (names[i], acc))
 
-def main():
+def main(train_path, test_path):
     #todo - insert the pdf file name
     """
     we will use 3 different classification algorithm. more about then in the
     pdf.
     """
     then = time.time()
-    training_data = pd.read_csv(TRAIN_PATH)
-    testing_data = pd.read_csv(TEST_PATH)
+    training_data = pd.read_csv(train_path)
+    testing_data = pd.read_csv(test_path)
     x_train = training_data[["Day", "Zone", "Latitude", "Longitude"]]
     y_train = training_data['Parking Violation']
     x_test = testing_data[["Day", "Zone", "Latitude", "Longitude"]]
@@ -48,4 +49,7 @@ def main():
     print("It took for violation round 2: ", now - then, " seconds")
 
 if __name__ == "__main__":
-    main()
+    train_path = Path(sys.argv[1])
+    test_path = Path(sys.argv[2])
+    main(train_path, test_path)
+
