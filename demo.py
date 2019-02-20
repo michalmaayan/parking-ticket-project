@@ -16,6 +16,8 @@ from tkinter import messagebox
 import webbrowser
 
 
+TRAINING_PATH = r"filtered_csv_files\geoUnited2016.csv"
+
 def classification_models(x_train, x_test, y_train):
     """
     running our classification model in order to predict the probability of
@@ -196,7 +198,6 @@ def create_csv(day, time, street):
         column_names = ["Day", "Zone", "Latitude", "Longitude", "Parking Violation"]
         writer.writerow(column_names)
         writer.writerow([day, zone, coordinate[0], coordinate[1], 0])
-    return path_name
 
 
 def run_demo(day, time, street_name):
@@ -210,8 +211,8 @@ def run_demo(day, time, street_name):
     try:
         print("Have patience it might take a minute, we are learning from a "
               "database with 4 million rows:)")
-        path_name = create_csv(day, time, street_name)
-        training_data = pd.read_csv(path_name)
+        create_csv(day, time, street_name)
+        training_data = pd.read_csv(TRAINING_PATH)
         x_train = training_data[["Day", "Zone", "Latitude", "Longitude"]]
         y_train = training_data['Parking Violation']
         testing_data = pd.read_csv(r"demo.csv")
