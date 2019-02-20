@@ -5,9 +5,7 @@ the import.
 """
 
 import os
-import xgboost
 from sklearn.ensemble import RandomForestClassifier
-from sklearn import tree
 import pandas as pd
 from geopy.geocoders import Nominatim
 import csv
@@ -28,21 +26,14 @@ START_PATH = "section_csv\\"
 
 def classification_models(x_train, x_test, y_train):
     """
-    running our classification model in order to predict the probability of
+    Running our RandomForestClassifier model in order to predict the
+    probability of
     getting a parking ticket.
     """
-    classifiers = []
-    model1 = xgboost.XGBClassifier()
-    classifiers.append(model1)
-    model2 = RandomForestClassifier()
-    classifiers.append(model2)
-    model3 = tree.DecisionTreeClassifier()
-    classifiers.append(model3)
-    y_pred = []
-    for i, clf in enumerate(classifiers):
-        clf.fit(x_train, y_train)
-        y_pred.append(str(clf.predict(x_test)))
-    if y_pred.count("[0]") > y_pred.count("[1]"):
+    model = RandomForestClassifier()
+    model.fit(x_train, y_train)
+    result = str(model.predict(x_test))
+    if result == "[0]":
         messagebox.showinfo('Message title',
                             "Park freely, your chances of getting a ticket are low!")
     else:
