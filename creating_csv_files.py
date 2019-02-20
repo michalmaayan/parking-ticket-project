@@ -6,9 +6,8 @@ import csv
 import re
 import datetime
 import random
-
-# src csv local path
-FILE_PATH = r"src_data\Violations2016.csv"
+import sys
+from pathlib import Path
 
 def time_to_zone(time):
     #todo ךרשום שעוד מידע בקובץ pdf
@@ -170,7 +169,9 @@ def main():
     """
     Parsing the given csv file we downloaded from "Kaggle"
     """
-    create_file(FILE_PATH)
+    # the csv file from kaggle
+    file_path = Path(sys.argv[1])
+    create_file(file_path)
 
 if __name__ == "__main__":
     main()
