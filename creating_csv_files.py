@@ -1,6 +1,6 @@
 """
-המטרה של הקוד הזה הינו לפרסר את קובץ האקסל הראשי שהורדנו לקובץ אקסל שרלוונטי עבורנו.
-לכן נסנן רק את השורות שרלוונטיות עבורנו (דוח עבור parking ticket ) וכן נתאים את הזמנים ביום לzoneים ואת הימים למספר.
+This class parses the original excel file and creates a new csv file with the
+columns and data in the form that we need.
 """
 import csv
 import re
