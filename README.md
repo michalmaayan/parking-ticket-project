@@ -34,7 +34,13 @@ The original file the project is based on can be downloaded from here (2016 and 
 
 We have changed the original file names to "Violation_year.csv". For example from "Parking_Violations_Issued_-_Fiscal_Year_2017.csv" to "Violation_2017.csv"
 
+After downloading the two source files, please create a suitable environment by following these steps:
+    1. python -m venv env
+    2. env\Scripts\activate
+    3. pip install -r requirements.txt
+    *this step might take a while, but after this you are ready :)
 
+Now you are ready to run the whole project, step by step -
 The python files need to be run in this order:
 1. creating_csv_files.py - create the csv file with and without parking violation.
 In order to run this program you will need to change the path to your local csv path, in the variable "FILE_PATH" (the file you downloaded from "kaggle")
