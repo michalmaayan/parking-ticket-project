@@ -110,6 +110,7 @@ class PageTwo(tk.Frame):
 		button1 = tk.Button(self, fg="#009788",bg="#383a39", text="Back",width=10,
 							command=lambda: controller.show_frame(PageOne))
 		button1.pack()
+		tk.Button(self, text="Quit", fg="#383a39", command=controller.destroy).pack()
 		photo = tk.PhotoImage(file="page2.png")
 		label = tk.Label(self, image=photo)
 		label.image = photo
