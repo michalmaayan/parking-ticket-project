@@ -2,8 +2,7 @@ import tkinter as tk
 from demo import run_demo
 LARGE_FONT = ("Verdana", 12)
 
-
-class SeaofBTCapp(tk.Tk):
+class App(tk.Tk):
 
 	def __init__(self, *args, **kwargs):
 		tk.Tk.__init__(self, *args, **kwargs)
@@ -33,8 +32,6 @@ class SeaofBTCapp(tk.Tk):
 
 
 class StartPage(tk.Frame):
-
-
 	def __init__(self, parent, controller):
 		tk.Frame.__init__(self, parent)
 		controller.title("Welcome")
@@ -53,30 +50,14 @@ class StartPage(tk.Frame):
 		background_label.place(x=0, y=0, relwidth=1, relheight=1)
 		# canvas.create_image(125, 125, image=tk_img)
 
-		button = tk.Button(self, text="Press to start", fg="white", bg="#8e24aa",font=("Helvetica", 24), command=lambda: controller.show_frame(PageOne), anchor='w',
+		button = tk.Button(self, text="Press to start", fg="white", bg="#8e24aa",
+						   font=("Helvetica", 24), command=lambda: controller.show_frame(PageOne), anchor='w',
 								width=10, activebackground="#33B5E5")
 		button.configure(width=10, activebackground="#33B5E5")
 		canvas.create_window(80, 100, anchor='nw', window=button)
 
 
-
-		# photo = tk.PhotoImage(file="Cover photo.png")
-		# label = tk.Label(self, image=photo)
-		# label.image = photo
-		# label.pack()
-
-		# button = tk.Button(self, text="Press to begin",
-		# 				   command=lambda: controller.show_frame(PageOne))
-		# button.pack(relx=0.0, rely=0.0, anchor=NW)
-
-
-
-	class PageOne(tk.Frame):
-	def print_text(self, controller):
-		controller.show_frame(PageTwo)
-		print("done")
-		# run_demo(self.day.get(), self.time.get(), self.street.get())
-
+class PageOne(tk.Frame):
 	def __init__(self, parent, controller):
 		tk.Frame.__init__(self, parent)
 
@@ -109,8 +90,6 @@ class StartPage(tk.Frame):
 		button1.pack()
 
 
-
-
 class PageTwo(tk.Frame):
 	def print_text(self, controller):
 		run_demo(controller.day.get(), controller.time.get(), controller.street.get())
@@ -118,7 +97,7 @@ class PageTwo(tk.Frame):
 	def __init__(self, parent, controller):
 		tk.Frame.__init__(self, parent)
 		self.configure(background="#009788")
-		label = tk.Label(self,fg="#383a39", bg="#009788", text="Have patience it might take a minute",
+		label = tk.Label(self,fg="#383a39", bg="#009788", text="Have patience it might take a few minutes",
 						 font=("Helvetica", 10))
 		label.pack()
 		label = tk.Label(self, fg="#383a39",bg="#009788", text="we are learning from a database"
@@ -136,6 +115,5 @@ class PageTwo(tk.Frame):
 		label.pack()
 
 
-app = SeaofBTCapp()
-
+app = App()
 app.mainloop()
