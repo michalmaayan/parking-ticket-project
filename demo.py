@@ -13,6 +13,7 @@ import folium
 from folium.plugins import HeatMap
 from tkinter import messagebox
 import webbrowser
+import warnings
 
 ################################################
 # The csv's path files
@@ -31,7 +32,9 @@ def classification_models(x_train, x_test, y_train):
     getting a parking ticket.
     """
     model = RandomForestClassifier()
-    model.fit(x_train, y_train)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        model.fit(x_train, y_train)
     result = str(model.predict(x_test))
     if result == "[0]":
         messagebox.showinfo('Message title',
@@ -107,8 +110,8 @@ def address_to_coordinate(address):
         return coordinate
     # validate the user "address" input
     except Exception:
-        messagebox.showinfo('Error', 'Invalid Street name, Enter a valid '
-                                     'street name')
+        messagebox.showinfo('Error', 'Invalid Street name, press "Back" '
+                                     'and Enter a valid street name')
         pass
 
 def section_csv_file(day, section):
@@ -175,16 +178,15 @@ def create_csv(day, time, street):
     """
     creating a "test.csv" file from the user input
     """
-    # validte user "day" input
+    # validate user "day" input
     if int(day)<0 or int(day)>6:
-        print("day2")
-        messagebox.showinfo('Error', "Invalid day, Eneter a valid day digit"
-                                     " (0-Sunday...6-Sutarday)")
+        messagebox.showinfo('Error', "Invalid day, press 'Back' and Enter a"
+                                     " valid day digit (0-Sunday...6-Sutarday)")
         raise Exception("invalid day")
-    # validte user "time" input
+    # validate user "time" input
     if not validate_time(time):
-        messagebox.showinfo('Error', "Invalid time, Eneter a valid time "
-                                     "between 0000-2359")
+        messagebox.showinfo('Error', "Invalid time, press 'Back' and Enter a "
+                                     "valid time between 0000-2359")
         raise Exception("invalid time")
     zone = time_to_zone(time)
     coordinate = address_to_coordinate(street)
