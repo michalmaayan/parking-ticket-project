@@ -20,9 +20,9 @@ import webbrowser
 # The csv's path files
 # 2016 or 2017 geoUnited file for the training part
 TRAINING_PATH = r"filtered_csv_files\geoUnited2016.csv"
-# The folder includes all zones (weekday and weekend), will be used in
-# "zone_csv_file" method
-START_PATH = "zones_csv\\"
+# The folder includes all sections (weekday and weekend), will be used in
+# "section_csv_file" method
+START_PATH = "section_csv\\"
 ################################################
 
 
@@ -50,11 +50,11 @@ def classification_models(x_train, x_test, y_train):
                             "Beware, your chances of getting a ticket are quite high...")
     print("done")
 
-def from_zone_to_global_zone(zone):
+def from_zone_to_sections(zone):
     """
-    Find the global zone which the inner zone is part of.
+    Find the section which the inner zone is part of.
     :param zone: 10 minute time interval
-    :return: the coordinate global zone
+    :return: the coordinate section
     """
     # zone between 7am to 9am
     if 42 <= zone < 54:
@@ -120,7 +120,7 @@ def address_to_coordinate(address):
                                      'street name')
         pass
 
-def zone_csv_file(day, global_zone):
+def section_csv_file(day, section):
     """
     return the path to the coordinate csv file, according to the user input
     """
@@ -129,7 +129,7 @@ def zone_csv_file(day, global_zone):
         part_of_week = "weekend"
     else:
         part_of_week = "weekday"
-    path_name = START_PATH + part_of_week + "_zone_time" + global_zone + ".csv"
+    path_name = START_PATH + part_of_week + "_section_time" + section + ".csv"
     return path_name
 
 
@@ -197,8 +197,8 @@ def create_csv(day, time, street):
         raise Exception("invalid time")
     zone = time_to_zone(time)
     coordinate = address_to_coordinate(street)
-    global_zone = from_zone_to_global_zone(zone)
-    path_name = zone_csv_file(day, global_zone)
+    section = from_zone_to_sections(zone)
+    path_name = section_csv_file(day, section)
     html_visual(path_name, coordinate)
     with open("demo.csv", 'w', newline='') as f:
         writer = csv.writer(f)

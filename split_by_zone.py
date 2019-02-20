@@ -1,13 +1,14 @@
 """
-Splitting the "parking violation geo csv" file we have created to 6 global zones
-(here a zone is a part of the day) in weekday and 6 global zones in weekend
-The day is separated to these global zones:
-zone 1 - between 7am to 9am
-zone 2 - between 9am to 12pm
-zone 3 - between 12pm to 16pm
-zone 4 - between 16pm to 19pm
-zone 5 - between 19pm to 23pm
-zone 6 - between 23pm to 07am
+Splitting the "parking violation geo csv" file we have created to 6
+sections, where each section represents a time during the day.
+We have split the data into 6 sections in weekday and 6 sections in weekend
+The day is separated to these sections:
+section 1 - between 7am to 9am
+section 2 - between 9am to 12pm
+section 3 - between 12pm to 16pm
+section 4 - between 16pm to 19pm
+section 5 - between 19pm to 23pm
+section 6 - between 23pm to 07am
 """
 import csv
 import time
@@ -22,8 +23,8 @@ def read_file(file_to_read, output_list):
     :param output_list:
     :return:
     """
-    num_lines_zone1 = 0
-    num_lines_zone2 = 0
+    num_lines_section1 = 0
+    num_lines_section2 = 0
     num_lines_zone3 = 0
     num_lines_zone4 = 0
     num_lines_zone5 = 0
@@ -41,11 +42,11 @@ def read_file(file_to_read, output_list):
                 # zone between 7am to 9am
                 if 42 <= int(row["Zone"]) < 54:
                     add_lines(output_list[0], row)
-                    num_lines_zone1+=1
+                    num_lines_section1+=1
                 # zone between 9am to 12pm
                 elif 54 <= int(row["Zone"]) < 72:
                     add_lines(output_list[1], row)
-                    num_lines_zone2 += 1
+                    num_lines_section2 += 1
                 # zone between 12pm to 16pm
                 elif 72 <= int(row["Zone"]) < 96:
                     add_lines(output_list[2], row)
@@ -89,8 +90,8 @@ def read_file(file_to_read, output_list):
                     add_lines(output_list[11], row)
                     num_lines_zone12 += 1
 
-        print("current num of lines zone1:", num_lines_zone1)
-        print("current num of lines zone2:", num_lines_zone2)
+        print("current num of lines zone1:", num_lines_section1)
+        print("current num of lines zone2:", num_lines_section2)
         print("current num of lines zone3:", num_lines_zone3)
         print("current num of lines zone4:", num_lines_zone4)
         print("current num of lines zone5:", num_lines_zone5)
@@ -105,7 +106,7 @@ def read_file(file_to_read, output_list):
 
 def add_lines(output_file, row):
     """
-    add the relevant line to its zone file
+    add the relevant line to its section file
     """
     column_names = ["Day", "Street Name", "Latitude", "Longitude",
                     "Violation Time", "Zone", "Parking Violation"]
@@ -115,7 +116,7 @@ def add_lines(output_file, row):
 
 def create_output_file(file_to_write):
     """
-    Creating 6 zones csv files
+    Creating 6 sections csv files
     :param file_to_write:
     :return: the file we have created
     """
@@ -129,18 +130,20 @@ def create_output_file(file_to_write):
 
 def main():
     """
-    creating 12 zones files
+    creating 12 sections files
     """
     then1 = time.time()  # Time before the operations start
     # list of open files
     output_files = []
-    # crating zones file for weekday - Monday, Tuesday, Wednesday, Thursday,
+    # crating sections file for weekday - Monday, Tuesday, Wednesday, Thursday,
     # Friday
     for i in range(1,7):
-        output_files.append(create_output_file("weekday_zone_time" + str(i) + ".csv"))
-    # crating zones file for weekend - Saturday, Sunday
+        output_files.append(create_output_file("weekday_section_time" + str(
+            i) + ".csv"))
+    # crating sections file for weekend - Saturday, Sunday
     for i in range(1,7):
-        output_files.append(create_output_file("weekend_zone_time" + str(i) + ".csv"))
+        output_files.append(create_output_file("weekend_section_time" + str(
+            i) + ".csv"))
     read_file(GEO_VIOLATION_PATH, output_files)
     for file_obj in output_files:
         file_obj.close()
