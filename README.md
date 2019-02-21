@@ -42,7 +42,7 @@ Or
 * input both arguments to Parameters
 
 ** Please Notice after a minute or two a heat-map will be displayed in your browser. After 5 more minutes you will also get a notification telling you whether the probability of getting a parking ticket at your chosen location is high or low.
-If the gui shows 'Not Responding', don't be alarmed, The program is still running. If the map does'nt show up in your browser after a minute then you probably didn't enter the correct paths as arguments.
+** If the gui shows 'Not Responding', don't be alarmed, The program is still running. If the map does'nt show up in your browser after a minute then you probably didn't enter the correct paths as arguments.
 
 ----------------
 Option 2:
