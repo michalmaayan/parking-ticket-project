@@ -1,7 +1,8 @@
 # parking-ticket-project
 The project for A Needle in a Data Haystack course
 
-Welcome to our project:)
+Welcome to our project:) 
+We recommend you use Windows, in was not tested on Linux.
 There are two options :
 1. run the demo
 2. run the entire project step by step.
