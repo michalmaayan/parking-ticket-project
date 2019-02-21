@@ -32,7 +32,7 @@ If you would like to run the demo (GUI.py and demo.py), you will first have to d
 1. Download the "sections" folder (containing 12 csv files) and "geoUnited2016.csv" file from "step2" folder. These files could be download from here -
 https://drive.google.com/drive/folders/1FWeMBnpsg4BhHWIuTUk4GRz7wVolIYzn?usp=sharing
 
-2. In order to run the demo, by running GUI.py,you will have to add two arguments to the command line in the following format -
+2. In order to run the demo, you must run GUI.py by adding two arguments to the command line in the following format -
 ```
 python GUI.py Path\To\sections_folder Path\To\geoUnited2016.csv
 ```
@@ -40,6 +40,8 @@ Or
 * click on run in the toolbar
 * edit configurations
 * input both arguments to Parameters
+
+Make sure to run GUI.py in the enviroment you created during the instalations
 
 ** Please Notice after a minute or two a heat-map will be displayed in your browser. After 5 more minutes you will also get a notification telling you whether the probability of getting a parking ticket at your chosen location is high or low.
 
