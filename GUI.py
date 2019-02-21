@@ -81,7 +81,7 @@ class PageOne(tk.Frame):
 		tk.Label(self, text="Enter the time in HHMM format (i.e. 2300)", fg="#383a39",
 							bg="#009788", font=("Helvetica", 11)).pack()
 		tk.Entry(self, textvariable=controller.time).pack()
-		tk.Label(self, text="Enter street name", fg="#383a39", bg="#009788", font=("Helvetica", 11)).pack()
+		tk.Label(self, text="Enter street name in NYC", fg="#383a39", bg="#009788", font=("Helvetica", 11)).pack()
 		tk.Entry(self, textvariable=controller.street).pack()
 
 		button = tk.Button(self, text="Continue", fg="#009788", bg="#383a39",font=("Helvetica", 12),
@@ -104,7 +104,7 @@ class PageTwo(tk.Frame):
 
 		self.configure(background="#009788")
 		tk.Label(self, fg="#383a39", bg="#009788",text="After pressing 'Run' your map should be "
-												"ready in 30 seconds", font=("Helvetica", 10)).pack()
+												"ready in about a minute", font=("Helvetica", 10)).pack()
 		tk.Label(self, fg="#383a39", bg="#009788", text="The classification model takes 5 minutes ",
 				 								font=("Helvetica", 10)).pack()
 		tk.Label(self,fg="#383a39", bg="#009788", text="Have patience we are learning from"
