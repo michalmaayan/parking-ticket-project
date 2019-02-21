@@ -1,9 +1,11 @@
+import sys
+from pathlib import Path
 import tkinter as tk
 from demo import run_demo
 
 class App(tk.Tk):
 
-	def __init__(self, *args, **kwargs):
+	def __init__(self, *args, sections_path=None, geo_path=None, **kwargs):
 		tk.Tk.__init__(self, *args, **kwargs)
 		container = tk.Frame(self)
 
@@ -17,7 +19,8 @@ class App(tk.Tk):
 		self.time = tk.StringVar()
 		self.street =  tk.StringVar()
 		for F in (StartPage, PageOne, PageTwo):
-			frame = F(container, self)
+			frame = F(container, self, sections_path=sections_path,
+					  geo_path=geo_path)
 
 			self.frames[F] = frame
 
@@ -31,7 +34,7 @@ class App(tk.Tk):
 
 
 class StartPage(tk.Frame):
-	def __init__(self, parent, controller):
+	def __init__(self, parent, controller, **kwargs):
 		tk.Frame.__init__(self, parent)
 		controller.title("Welcome")
 		controller.wm_iconbitmap("map.ico")
@@ -57,7 +60,7 @@ class StartPage(tk.Frame):
 
 
 class PageOne(tk.Frame):
-	def __init__(self, parent, controller):
+	def __init__(self, parent, controller, **kwargs):
 		tk.Frame.__init__(self, parent)
 
 		self.configure(background="#009788")
@@ -90,11 +93,15 @@ class PageOne(tk.Frame):
 
 
 class PageTwo(tk.Frame):
-	def print_text(self, controller):
-		run_demo(controller.day.get(), controller.time.get(), controller.street.get())
+	def print_text(self, controller, sections_path, geo_path):
+		run_demo(controller.day.get(), controller.time.get(),
+				 controller.street.get(), sections_path, geo_path)
 
-	def __init__(self, parent, controller):
+	def __init__(self, parent, controller, **kwargs):
 		tk.Frame.__init__(self, parent)
+		sections_path = kwargs["sections_path"]
+		geo_path = kwargs["geo_path"]
+
 		self.configure(background="#009788")
 		tk.Label(self, fg="#383a39", bg="#009788",text="After pressing 'Run' your map should be "
 												"ready in 30 seconds", font=("Helvetica", 10)).pack()
@@ -104,7 +111,9 @@ class PageTwo(tk.Frame):
 								" a database with 4 million rows:)",font=("Helvetica", 10)).pack()
 
 		button2 = tk.Button(self, fg="#009788",bg="#383a39",text="Run", font=("Helvetica", 10),width=10,
-							command=lambda: self.print_text(controller))
+							command=lambda: self.print_text(controller,
+															sections_path,
+															geo_path))
 
 		button2.pack()
 		button1 = tk.Button(self, fg="#009788",bg="#383a39", text="Back",width=10,
@@ -116,6 +125,11 @@ class PageTwo(tk.Frame):
 		label.image = photo
 		label.pack()
 
+def main():
+	sections_path = Path(sys.argv[1])
+	geo_path = Path(sys.argv[2])
+	app = App(sections_path=sections_path, geo_path=geo_path)
+	app.mainloop()
 
-app = App()
-app.mainloop()
+if __name__ == "__main__":
+	main()

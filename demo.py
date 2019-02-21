@@ -114,7 +114,7 @@ def address_to_coordinate(address):
                                      'and Enter a valid street name')
         pass
 
-def section_csv_file(day, section):
+def section_csv_file(day, section, sections_path):
     """
     return the path to the coordinate csv file, according to the user input
     """
@@ -123,7 +123,9 @@ def section_csv_file(day, section):
         part_of_week = "weekend"
     else:
         part_of_week = "weekday"
-    path_name = START_PATH + part_of_week + "_section_time" + section + ".csv"
+    path_name = str(sections_path) +"\\"+ part_of_week + "_section_time" + \
+                section + ".csv"
+    print("after path")
     return path_name
 
 
@@ -174,7 +176,7 @@ def validate_time(time):
         return False
     return True
 
-def create_csv(day, time, street):
+def create_csv(day, time, street, sections_path):
     """
     creating a "test.csv" file from the user input
     """
@@ -191,7 +193,7 @@ def create_csv(day, time, street):
     zone = time_to_zone(time)
     coordinate = address_to_coordinate(street)
     section = from_zone_to_sections(zone)
-    path_name = section_csv_file(day, section)
+    path_name = section_csv_file(day, section, sections_path)
     html_visual(path_name, coordinate)
     with open("demo.csv", 'w', newline='') as f:
         writer = csv.writer(f)
@@ -200,7 +202,7 @@ def create_csv(day, time, street):
         writer.writerow([day, zone, coordinate[0], coordinate[1], 0])
 
 
-def run_demo(day, time, street_name):
+def run_demo(day, time, street_name, sections_path, geo_path):
     """
     This method is called from GUI.py
     :param day: user input
@@ -211,8 +213,8 @@ def run_demo(day, time, street_name):
     try:
         print("Have patience it might take a minute, we are learning from a "
               "database with 4 million rows:)")
-        create_csv(day, time, street_name)
-        training_data = pd.read_csv(TRAINING_PATH)
+        create_csv(day, time, street_name, sections_path)
+        training_data = pd.read_csv(geo_path)
         x_train = training_data[["Day", "Zone", "Latitude", "Longitude"]]
         y_train = training_data['Parking Violation']
         testing_data = pd.read_csv(r"demo.csv")
