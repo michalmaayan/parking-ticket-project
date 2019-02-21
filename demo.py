@@ -125,7 +125,6 @@ def section_csv_file(day, section, sections_path):
         part_of_week = "weekday"
     path_name = str(sections_path) +"\\"+ part_of_week + "_section_time" + \
                 section + ".csv"
-    print("after path")
     return path_name
 
 
