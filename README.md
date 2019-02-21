@@ -9,7 +9,7 @@ There are two options :
 -----------------
 Requirements:
 -----------------
-1. python 64
+1. python3 64bit
 2. git
 
 -----------------
@@ -32,11 +32,11 @@ If you would like to run the demo (GUI.py and demo.py), you will first have to d
 1. Download the "sections" folder (contains 12 csv files) and "geoUnited2016.csv" file from "step2" folder. These files could be download from here -
 https://drive.google.com/drive/folders/1FWeMBnpsg4BhHWIuTUk4GRz7wVolIYzn?usp=sharing
 
-2. At demo.py change "START_PATH" and "TRAINING_PATH". (surrounded by #)
-"START_PATH" - is the directory in it you saved the files from "sections" folder (not include a specific file name).
-"TRAINING_PATH" - is the directory in it you saved the "geoUnited2016.csv" file (the file itself).
-
-3. Now you are ready to run the demo by running "GUI.py". Notice after a minute or two a heat-map will be displayed on your browser. After 5 more minutes you will also get a notification if the probabilty getting a parking ticket at your chosen place during all week is high or low.
+2. In order to run the demo, by running GUI.py,you will have to add two command line arguments to the script in the following format -
+```
+python GUI.py Path\To\sections_folder Path\To\geoUnited2016.csv
+```
+***Please Notice after a minute or two a heat-map will be displayed on your browser. After 5 more minutes you will also get a notification if the probabilty of getting a parking ticket at your chosen place during all week is high or low.
 
 ----------------
 Option 2:
@@ -46,13 +46,8 @@ This is why the csv files (also the one which are created during the project) ar
 
 The original file the project is based on can be downloaded from here (2016 and 2017 csv files)- https://www.kaggle.com/new-york-city/nyc-parking-tickets
 
-We have changed the original file names to "Violation_year.csv". For example from "Parking_Violations_Issued_-_Fiscal_Year_2017.csv" to "Violation_2017.csv"
+Pleast notice that we have changed the original file names to "Violation_year.csv". For example from "Parking_Violations_Issued_-_Fiscal_Year_2017.csv" to "Violation_2017.csv"
 
-After downloading the two source files, please create a suitable environment by following these steps:
-    1. python -m venv env
-    2. env\Scripts\activate
-    3. pip install -r requirements.txt
-    *this step might take a while, but after this you are ready :)
 
 Now you are ready to run the whole project, step by step -
 The python files need to be run in this order:
@@ -89,13 +84,23 @@ section 3 - between 12pm to 16pm
 section 4 - between 16pm to 19pm
 section 5 - between 19pm to 23pm
 section 6 - between 23pm to 07am
-In order to run this program you will need to change the path to your local geo_violation csv path (which is one of the 3 files created at step 2)
+In order to run this program you will have to add one command line argument to the script in the following format -
+```
+python classification.py Path\To\geoViolation2017.csv
+```
+Where geoViolation2017.csv h is one of the 3 files created at step2
 
 Now you are able to run the demo and see visualziation of the data :)
 
 5. ruuning the demo by running the GUI-
-    5.1 - In demo.py file you need to change the parameter "START_PATH" to your local path directory. At the previous step we create 12 csv section files with the following name "weekday_section_timeX" or "weekend_section_timeX" where 'X' is a digit between 1 to 6. This has to be the name of those files, but the directory you choose to save them its free to your choice, so please just change the beginning of the path, by changing "START_PATH" constant. Moreover you will need to change TRAINING_PATH to the geoUnited2016.csv file we create at step 2
-    5.2 - Now, In order to run the GUI, run GUI.py and follow the instruction.
-    This will open you a heat-map showing the probabilty of getting a parking ticket. After 5 minutes you will also get a notification if the probabilty getting a parking ticket at your chosen place during all week is high or low.
+In order to run the demo, by running GUI.py,you will have to add two command line arguments to the script in the following format -
+```
+python GUI.py Path\To\sections_folder Path\To\geoUnited2016.csv
+```
+At the previous step we create 12 csv section files with the following name "weekday_section_timeX" or "weekend_section_timeX" where 'X' is a digit between 1 to 6. This has to be the name of those files, but the directory you choose to save them its free to your choice, so "sections_folder" is the name of the folder which the files are saved in.
+Moreover the geoUnited2016.csv is one of the files we have created at step 2
+***Please Notice after a minute or two a heat-map will be displayed on your browser. After 5 more minutes you will also get a notification if the probabilty of getting a parking ticket at your chosen place during all week is high or low.
+
+
 
 
