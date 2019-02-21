@@ -65,6 +65,7 @@ python creating_csv_files.py.py Path\To\Violation_2016.csv
 ```
 Where Path\To\Violation_2016.csv is for the file you have downloaded from "kaggle".
 You should run this step twice on two different files (2016 and 2017).
+
 After this step you should have 4 new csv files, 2 for each year.
 
 2. geolocator.py - creates a united csv file from the files from the previous step, with and without parking violations. This file will include two new columns, latitude and longitude for each street.
@@ -73,6 +74,7 @@ In order to run this program you will have to add two command line arguments to 
 python geolocator.py Path\To\Parking_Violations2016.csv Path\To\no_parkingViolations2016.csv
 ```
 Where Path\To\Parking_Violations2016.csv Path\To\no_parkingViolations2016.csv are the paths for the files you have created in step 1.
+
 After this step you should have 3 new csv files. Two are the same files from step 1 (containing parking violations and no parking violations), with the new columns of latitude and longitude. The 3rd file is a united file containing the first two files combined.
 You should run this program twice for 2016 files and 2017 files (after this you will have 6 new files).
 
