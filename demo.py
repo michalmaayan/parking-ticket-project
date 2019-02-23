@@ -161,6 +161,7 @@ def html_visual(path_name, coordinate):
     map.save('map.html')
     webbrowser.open('file://' + os.path.realpath("map.html"))
     print("map is ready")
+    print("Please wait 5 minutes for the notification to be displayed")
 
 def validate_time(time):
     """
